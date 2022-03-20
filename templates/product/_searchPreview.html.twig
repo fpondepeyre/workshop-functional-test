@@ -1,0 +1,18 @@
+<div class="list-group">
+    {% for product in products %}
+        <a class="list-group-item list-group-item-action" href="{{ path('app_dummy') }}">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <img
+                        alt="{{ product.name }}"
+                        src="{{ asset('/uploads/products/'~product.imageFilename) }}"
+                        class="rounded"
+                    >
+                    <span class="px-1">{{ product.name }}</span>
+                </div>
+            </div>
+        </a>
+    {% else %}
+        <div class="list-group-item">No results found!</div>
+    {% endfor %}
+</div>

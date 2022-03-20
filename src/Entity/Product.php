@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,13 +30,12 @@ class Product
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Color::class, inversedBy="products")
+     * @ORM\Column(type="string", length=255)
      */
-    private $colors;
+    private $imageFilename;
 
     public function __construct()
     {
-        $this->colors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,27 +67,20 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, Color>
-     */
-    public function getColors(): Collection
+    public function getImageFilename(): ?string
     {
-        return $this->colors;
+        return $this->imageFilename;
     }
 
-    public function addColor(Color $color): self
+    public function setImageFilename(string $imageFilename): self
     {
-        if (!$this->colors->contains($color)) {
-            $this->colors[] = $color;
-        }
+        $this->imageFilename = $imageFilename;
 
         return $this;
     }
 
-    public function removeColor(Color $color): self
+    public function getImageUrl(): string
     {
-        $this->colors->removeElement($color);
-
-        return $this;
+        return sprintf('/uploads/products/'.$this->imageFilename);
     }
 }

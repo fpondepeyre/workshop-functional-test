@@ -4,18 +4,16 @@ namespace App\Command;
 
 use App\Repository\ProductRepository;
 use Carbon\Carbon;
+use League\Csv\Writer;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use League\Csv\Writer;
 
 class CsvProductCommand extends Command
 {
     protected static $defaultName = 'app:csv:product';
-    protected static $defaultDescription = 'Add a short description for your command';
+    protected static $defaultDescription = 'Csv Export products';
 
     private $repository;
     private $csvExportPath;
@@ -30,10 +28,6 @@ class CsvProductCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->addArgument('arg1', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
-        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -42,11 +36,11 @@ class CsvProductCommand extends Command
 
         $products = $this->repository->findAll();
 
-        $filePath = sprintf($this->csvExportPath . '/product_%s.csv', Carbon::now()->format('YmdHis'));
+        $filePath = sprintf($this->csvExportPath.'/product_%s.csv', Carbon::now()->format('YmdHis'));
         $csv = Writer::createFromPath($filePath, 'w+');
         $csv->insertOne(['id', 'name', 'description']);
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $csv->insertOne([$product->getId(), $product->getName(), $product->getDescription()]);
         }
 

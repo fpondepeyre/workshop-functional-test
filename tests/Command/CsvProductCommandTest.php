@@ -23,7 +23,7 @@ class CsvProductCommandTest extends KernelTestCase
 
     protected function tearDown(): void
     {
-        $file = __DIR__ . '/../../export/csv/product_20180101000000.csv';
+        $file = __DIR__.'/../../export/csv/product_20180101000000.csv';
 
         if (file_exists($file)) {
             unlink($file);
@@ -33,8 +33,8 @@ class CsvProductCommandTest extends KernelTestCase
 
     public function testExecute()
     {
-        ProductFactory::createOne(['name' => 'Floppy Disk']);
-        ProductFactory::createOne(['name' => 'Compact Disk']);
+        ProductFactory::createOne(['name' => 'Floppy Disk', 'description' => 'Lorem ipsum']);
+        ProductFactory::createOne(['name' => 'Compact Disk', 'description' => 'Dolores']);
 
         $kernel = self::bootKernel();
         $application = new Application($kernel);
@@ -45,10 +45,10 @@ class CsvProductCommandTest extends KernelTestCase
 
         $output = $commandTester->getStatusCode();
         $this->assertSame(Command::SUCCESS, $output);
-        $this->assertStringContainsString('[OK] Csv generated with success to '. $kernel->getProjectDir() .'/export/csv/product_20180101000000.csv', $commandTester->getDisplay());
+        $this->assertStringContainsString('[OK] Csv generated with success to '.$kernel->getProjectDir().'/export/csv/product_20180101000000.csv', $commandTester->getDisplay());
 
-        $generatedCsv = __DIR__ . '/../../export/csv/product_20180101000000.csv';
-        $expectedCsv = __DIR__ . '/fixtures/export.csv';
+        $generatedCsv = __DIR__.'/../../export/csv/product_20180101000000.csv';
+        $expectedCsv = __DIR__.'/fixtures/export.csv';
 
         $this->assertFileEquals($expectedCsv, $generatedCsv);
     }

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProductController!{% endblock %}
+
+{% block body %}
+<h1>Page title</h1>
+
+<div class="example-wrapper">
+    <div data-controller="counter">
+        <button data-action="counter#increment" class="btn btn-primary btn-sm">
+            Click me!
+        </button>
+
+        <br>
+
+        I have been clicked <span data-counter-target="count">0</span> times!
+    </div>
+
+    <div class="col-9">
+        <form>
+            <div class="input-group"
+                    {{ stimulus_controller('search-preview', {
+                        url: path('app_search')
+                    }) }}
+            >
+                <input
+                        name="q"
+                        value="{{ searchTerm }}"
+                        placeholder="Search products..."
+                        type="search"
+                        class="form-control"
+                        data-action="search-preview#onSearchInput"
+                >
+
+                <button type="submit" class="d-none">Search</button>
+
+                <div class="search-preview" data-search-preview-target="result"></div>
+            </div>
+        </form>
+</div>
+{% endblock %}

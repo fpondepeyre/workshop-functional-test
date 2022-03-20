@@ -1,0 +1,15 @@
+httplug:
+    plugins:
+        retry:
+            retry: 1
+
+    discovery:
+        client: 'auto'
+
+    clients:
+        app:
+            http_methods_client: true
+            plugins:
+                - vcr:
+                      mode: replay # record | replay | replay_or_record
+                      fixtures_directory: '%kernel.project_dir%/fixtures/http'

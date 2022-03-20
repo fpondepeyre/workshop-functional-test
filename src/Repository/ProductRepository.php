@@ -48,7 +48,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * @return Product[]
      */
-    public function search(?string $term): array
+    public function search(?string $term = null): array
     {
         return $this->createQueryBuilder('product')
             ->andWhere('product.name LIKE :term OR product.description LIKE :term')

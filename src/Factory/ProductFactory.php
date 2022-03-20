@@ -4,26 +4,26 @@ namespace App\Factory;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
-use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
+use Zenstruck\Foundry\RepositoryProxy;
 
 /**
  * @extends ModelFactory<Product>
  *
- * @method static Product|Proxy createOne(array $attributes = [])
- * @method static Product[]|Proxy[] createMany(int $number, array|callable $attributes = [])
- * @method static Product|Proxy find(object|array|mixed $criteria)
- * @method static Product|Proxy findOrCreate(array $attributes)
- * @method static Product|Proxy first(string $sortedField = 'id')
- * @method static Product|Proxy last(string $sortedField = 'id')
- * @method static Product|Proxy random(array $attributes = [])
- * @method static Product|Proxy randomOrCreate(array $attributes = [])
- * @method static Product[]|Proxy[] all()
- * @method static Product[]|Proxy[] findBy(array $attributes)
- * @method static Product[]|Proxy[] randomSet(int $number, array $attributes = [])
- * @method static Product[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
- * @method static ProductRepository|RepositoryProxy repository()
+ * @method static        Product|Proxy createOne(array $attributes = [])
+ * @method static        Product[]|Proxy[] createMany(int $number, array|callable $attributes = [])
+ * @method static        Product|Proxy find(object|array|mixed $criteria)
+ * @method static        Product|Proxy findOrCreate(array $attributes)
+ * @method static        Product|Proxy first(string $sortedField = 'id')
+ * @method static        Product|Proxy last(string $sortedField = 'id')
+ * @method static        Product|Proxy random(array $attributes = [])
+ * @method static        Product|Proxy randomOrCreate(array $attributes = [])
+ * @method static        Product[]|Proxy[] all()
+ * @method static        Product[]|Proxy[] findBy(array $attributes)
+ * @method static        Product[]|Proxy[] randomSet(int $number, array $attributes = [])
+ * @method static        Product[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
+ * @method static        ProductRepository|RepositoryProxy repository()
  * @method Product|Proxy create(array|callable $attributes = [])
  */
 final class ProductFactory extends ModelFactory
@@ -39,7 +39,9 @@ final class ProductFactory extends ModelFactory
     {
         return [
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
-            'name' => self::faker()->text(),
+            'name' => self::faker()->words(3, true),
+            'description' => self::faker()->paragraph(),
+            'imageFilename' => 'floppy-disc.png',
         ];
     }
 
